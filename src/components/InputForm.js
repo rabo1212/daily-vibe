@@ -25,18 +25,18 @@ const ZODIAC_ANIMALS = [
 ];
 
 const ZODIAC_SIGNS = [
-  { value: 'aries', label: '♈ 양자리', emoji: '♈' },
-  { value: 'taurus', label: '♉ 황소자리', emoji: '♉' },
-  { value: 'gemini', label: '♊ 쌍둥이자리', emoji: '♊' },
-  { value: 'cancer', label: '♋ 게자리', emoji: '♋' },
-  { value: 'leo', label: '♌ 사자자리', emoji: '♌' },
-  { value: 'virgo', label: '♍ 처녀자리', emoji: '♍' },
-  { value: 'libra', label: '♎ 천칭자리', emoji: '♎' },
-  { value: 'scorpio', label: '♏ 전갈자리', emoji: '♏' },
-  { value: 'sagittarius', label: '♐ 궁수자리', emoji: '♐' },
-  { value: 'capricorn', label: '♑ 염소자리', emoji: '♑' },
-  { value: 'aquarius', label: '♒ 물병자리', emoji: '♒' },
-  { value: 'pisces', label: '♓ 물고기자리', emoji: '♓' }
+  { value: 'aries', name: '양자리', date: '3/21~4/19', emoji: '♈' },
+  { value: 'taurus', name: '황소자리', date: '4/20~5/20', emoji: '♉' },
+  { value: 'gemini', name: '쌍둥이자리', date: '5/21~6/21', emoji: '♊' },
+  { value: 'cancer', name: '게자리', date: '6/22~7/22', emoji: '♋' },
+  { value: 'leo', name: '사자자리', date: '7/23~8/22', emoji: '♌' },
+  { value: 'virgo', name: '처녀자리', date: '8/23~9/22', emoji: '♍' },
+  { value: 'libra', name: '천칭자리', date: '9/23~10/22', emoji: '♎' },
+  { value: 'scorpio', name: '전갈자리', date: '10/23~11/21', emoji: '♏' },
+  { value: 'sagittarius', name: '궁수자리', date: '11/22~12/21', emoji: '♐' },
+  { value: 'capricorn', name: '염소자리', date: '12/22~1/19', emoji: '♑' },
+  { value: 'aquarius', name: '물병자리', date: '1/20~2/18', emoji: '♒' },
+  { value: 'pisces', name: '물고기자리', date: '2/19~3/20', emoji: '♓' }
 ];
 
 export default function InputForm({ onSubmit }) {
@@ -110,19 +110,20 @@ export default function InputForm({ onSubmit }) {
         <label className="block text-white/80 font-body text-sm mb-3 uppercase tracking-wider">
           ⭐ 별자리 선택
         </label>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {ZODIAC_SIGNS.map((sign) => (
             <button
               key={sign.value}
               type="button"
               onClick={() => setZodiacSign(sign.value)}
-              className={`py-3 rounded-lg text-center transition-all ${
+              className={`py-3 px-2 rounded-lg text-center transition-all ${
                 zodiacSign === sign.value
                   ? 'bg-gradient-to-r from-neon-purple to-neon-pink text-white neon-box'
                   : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
               }`}
             >
-              <span className="text-xl">{sign.emoji}</span>
+              <div className="font-body text-sm font-semibold">{sign.name}</div>
+              <div className="text-xs opacity-60 mt-1">{sign.date}</div>
             </button>
           ))}
         </div>
@@ -142,7 +143,7 @@ export default function InputForm({ onSubmit }) {
             {zodiacAnimal && zodiacSign && <span className="mx-2">×</span>}
             {zodiacSign && (
               <span className="text-neon-purple">
-                {ZODIAC_SIGNS.find(z => z.value === zodiacSign)?.emoji}
+                {ZODIAC_SIGNS.find(z => z.value === zodiacSign)?.name}
               </span>
             )}
           </p>
