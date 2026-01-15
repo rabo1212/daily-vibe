@@ -61,7 +61,7 @@ export default function InputForm({ onSubmit }) {
     <form onSubmit={handleSubmit} className="space-y-6 fade-in">
       {/* MBTI 선택 */}
       <div className="stagger-1">
-        <label className="block text-white/80 font-body text-sm mb-3 uppercase tracking-wider">
+        <label className="block text-white font-body text-sm mb-3 uppercase tracking-wider font-semibold">
           👤 MBTI 선택
         </label>
         <div className="grid grid-cols-4 gap-2">
@@ -73,7 +73,7 @@ export default function InputForm({ onSubmit }) {
               className={`py-3 rounded-lg font-display text-sm font-semibold transition-all ${
                 mbti === type
                   ? 'bg-gradient-to-r from-neon-pink to-neon-purple text-white neon-box'
-                  : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
               }`}
             >
               {type}
@@ -84,7 +84,7 @@ export default function InputForm({ onSubmit }) {
 
       {/* 띠 선택 */}
       <div className="stagger-2">
-        <label className="block text-white/80 font-body text-sm mb-3 uppercase tracking-wider">
+        <label className="block text-white font-body text-sm mb-3 uppercase tracking-wider font-semibold">
           🐲 띠 선택
         </label>
         <div className="grid grid-cols-4 gap-2">
@@ -96,7 +96,7 @@ export default function InputForm({ onSubmit }) {
               className={`py-3 rounded-lg text-center transition-all ${
                 zodiacAnimal === animal.value
                   ? 'bg-gradient-to-r from-neon-cyan to-neon-purple text-white neon-box-cyan'
-                  : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
               }`}
             >
               <span className="text-xl">{animal.emoji}</span>
@@ -107,7 +107,7 @@ export default function InputForm({ onSubmit }) {
 
       {/* 별자리 선택 */}
       <div className="stagger-3">
-        <label className="block text-white/80 font-body text-sm mb-3 uppercase tracking-wider">
+        <label className="block text-white font-body text-sm mb-3 uppercase tracking-wider font-semibold">
           ⭐ 별자리 선택
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -119,11 +119,11 @@ export default function InputForm({ onSubmit }) {
               className={`py-3 px-2 rounded-lg text-center transition-all ${
                 zodiacSign === sign.value
                   ? 'bg-gradient-to-r from-neon-purple to-neon-pink text-white neon-box'
-                  : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/10'
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
               }`}
             >
               <div className="font-body text-sm font-semibold">{sign.name}</div>
-              <div className="text-xs opacity-60 mt-1">{sign.date}</div>
+              <div className="text-xs text-white/70 mt-1">{sign.date}</div>
             </button>
           ))}
         </div>
@@ -131,8 +131,8 @@ export default function InputForm({ onSubmit }) {
 
       {/* 선택 요약 */}
       {(mbti || zodiacAnimal || zodiacSign) && (
-        <div className="p-4 bg-white/5 rounded-lg border border-white/10 stagger-4">
-          <p className="text-center text-white/80 font-body">
+        <div className="p-4 bg-white/10 rounded-lg border border-white/20 stagger-4">
+          <p className="text-center text-white font-body">
             {mbti && <span className="text-neon-pink font-semibold">{mbti}</span>}
             {mbti && zodiacAnimal && <span className="mx-2">×</span>}
             {zodiacAnimal && (
@@ -142,7 +142,7 @@ export default function InputForm({ onSubmit }) {
             )}
             {zodiacAnimal && zodiacSign && <span className="mx-2">×</span>}
             {zodiacSign && (
-              <span className="text-neon-purple">
+              <span className="text-neon-purple font-semibold">
                 {ZODIAC_SIGNS.find(z => z.value === zodiacSign)?.name}
               </span>
             )}
@@ -154,8 +154,10 @@ export default function InputForm({ onSubmit }) {
       <button
         type="submit"
         disabled={!isValid}
-        className={`w-full cyber-btn stagger-5 ${
-          !isValid ? 'opacity-50 cursor-not-allowed' : ''
+        className={`w-full py-4 rounded-lg font-display text-lg font-bold tracking-wider transition-all ${
+          isValid
+            ? 'bg-gradient-to-r from-neon-pink to-neon-purple text-white shadow-lg shadow-neon-pink/50 hover:shadow-neon-pink/70'
+            : 'bg-white/10 text-white/40 cursor-not-allowed'
         }`}
       >
         ✨ 오늘의 운세 보기 ✨
