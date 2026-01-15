@@ -3,6 +3,18 @@
 import { useRef, useState } from 'react';
 import ShareButton from './ShareButton';
 
+// 색상 코드 → 한글 변환
+const COLOR_NAMES = {
+  '#FF006E': '핫핑크',
+  '#00F5FF': '시안',
+  '#B565F0': '퍼플',
+  '#F0F000': '옐로우',
+  '#00FF88': '민트',
+  '#FF6B6B': '코랄',
+  '#7B68EE': '라벤더',
+  '#FFD700': '골드',
+};
+
 export default function FortuneCard({ fortune, userInfo }) {
   const cardRef = useRef(null);
   const [isCapturing, setIsCapturing] = useState(false);
@@ -16,6 +28,11 @@ export default function FortuneCard({ fortune, userInfo }) {
   
   const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const dayStr = dayNames[today.getDay()];
+
+  // 색상 코드를 한글로 변환
+  const getColorName = (colorCode) => {
+    return COLOR_NAMES[colorCode] || '행운의 색';
+  };
 
   const renderStars = (score) => {
     return (
@@ -47,7 +64,7 @@ export default function FortuneCard({ fortune, userInfo }) {
         <div className="relative z-10">
           {/* 로고 */}
           <div className="text-center mb-4">
-            <span className="font-display text-sm text-white/60 tracking-widest">
+            <span className="font-display text-sm text-white tracking-widest">
               ✨ DAILY VIBE ✨
             </span>
           </div>
@@ -61,7 +78,7 @@ export default function FortuneCard({ fortune, userInfo }) {
               <span className="text-neon-cyan neon-text-cyan">
                 {userInfo.zodiacAnimal.emoji}
               </span>
-              <span className="text-white/30">×</span>
+              <span className="text-white/50">×</span>
               <span className="text-neon-purple neon-text-purple">
                 {userInfo.zodiacSign.emoji}
               </span>
@@ -73,7 +90,7 @@ export default function FortuneCard({ fortune, userInfo }) {
 
           {/* 메시지 */}
           <div className="mb-6">
-            <p className="text-sm text-white/50 font-body mb-2 uppercase tracking-wider">
+            <p className="text-sm text-white font-body mb-2 uppercase tracking-wider">
               💭 오늘의 메시지
             </p>
             <p className="text-white font-body text-lg leading-relaxed">
@@ -87,31 +104,31 @@ export default function FortuneCard({ fortune, userInfo }) {
           {/* 운세 점수 */}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="text-center">
-              <p className="text-sm text-white/50 mb-1">💜 연애운</p>
+              <p className="text-sm text-white mb-1">💜 연애운</p>
               {renderStars(fortune.loveScore)}
             </div>
             <div className="text-center">
-              <p className="text-sm text-white/50 mb-1">💰 재물운</p>
+              <p className="text-sm text-white mb-1">💰 재물운</p>
               {renderStars(fortune.moneyScore)}
             </div>
             <div className="text-center">
-              <p className="text-sm text-white/50 mb-1">💼 업무운</p>
+              <p className="text-sm text-white mb-1">💼 업무운</p>
               {renderStars(fortune.workScore)}
             </div>
           </div>
 
-          {/* 행운 색상 */}
+          {/* 행운 색상 - 한 줄로 */}
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-sm text-white/50">🍀 행운색</span>
+            <span className="text-sm text-white">🍀 행운색</span>
             <div
-              className="w-8 h-8 rounded-full border-2 border-white/20"
+              className="w-6 h-6 rounded-full border-2 border-white/30"
               style={{ 
                 backgroundColor: fortune.luckyColor,
                 boxShadow: `0 0 15px ${fortune.luckyColor}`
               }}
             />
-            <span className="font-mono text-sm text-white/60">
-              {fortune.luckyColor}
+            <span className="font-body text-sm text-white font-semibold">
+              {getColorName(fortune.luckyColor)}
             </span>
           </div>
 
@@ -120,7 +137,7 @@ export default function FortuneCard({ fortune, userInfo }) {
 
           {/* 행운 번호 */}
           <div className="text-center mb-6">
-            <p className="text-sm text-white/50 mb-3 uppercase tracking-wider">
+            <p className="text-sm text-white mb-3 uppercase tracking-wider">
               🎰 오늘의 행운번호
             </p>
             <div className="flex justify-center gap-2">
@@ -139,7 +156,7 @@ export default function FortuneCard({ fortune, userInfo }) {
           </div>
 
           {/* 날짜 */}
-          <div className="text-center text-white/40 font-mono text-sm">
+          <div className="text-center text-white/70 font-mono text-sm">
             {dateStr} {dayStr}
           </div>
         </div>
