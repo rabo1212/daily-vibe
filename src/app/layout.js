@@ -10,6 +10,9 @@ export const metadata = {
     description: 'MBTI × 띠 × 별자리로 알아보는 오늘의 운세 카드',
     type: 'website',
   },
+  other: {
+    'google-adsense-account': 'ca-pub-6584899015936237',
+  },
 };
 
 export default function RootLayout({ children }) {
