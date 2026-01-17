@@ -46,6 +46,12 @@ const TAROT_CARDS = {
     { id: 'wisdom_04', keyword: '직감', message: '내면의 목소리에 귀 기울여보세요.' },
     { id: 'wisdom_05', keyword: '통찰', message: '깊은 통찰력으로 문제를 해결할 수 있어요.' },
   ],
+  cosmic: [
+    { id: 'cosmic_01', keyword: '우주', message: '무한한 가능성이 당신 앞에 펼쳐져 있어요.' },
+    { id: 'cosmic_02', keyword: '달빛', message: '달빛이 당신의 길을 밝혀줄 거예요.' },
+    { id: 'cosmic_03', keyword: '별자리', message: '별들이 당신의 운명을 축복하고 있어요.' },
+    { id: 'cosmic_04', keyword: '행성', message: '우주의 에너지가 당신을 감싸고 있어요.' },
+  ],
 };
 
 // 운세 점수에 따라 카테고리 선택
@@ -57,7 +63,7 @@ function selectCategory(fortune) {
   };
   
   const maxCategory = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-  const categories = ['love', 'money', 'work', 'health', 'luck', 'wisdom'];
+  const categories = ['love', 'money', 'work', 'health', 'luck', 'wisdom', 'cosmic'];
   const random = Math.random();
   
   if (random < 0.5) {
