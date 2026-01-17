@@ -51,7 +51,10 @@ export default function Home() {
       <div className="relative z-10 max-w-lg mx-auto">
         {/* 헤더 */}
         <header className="text-center mb-8 fade-in">
-          <h1 className="font-display text-4xl md:text-5xl font-bold mb-2">
+          <h1 
+            className="font-display text-4xl md:text-5xl font-bold mb-2 cursor-pointer"
+            onClick={handleReset}
+          >
             <span className="gradient-text glitch" data-text="DAILY VIBE">DAILY VIBE</span>
           </h1>
           <p className="text-white/60 font-body text-lg">
