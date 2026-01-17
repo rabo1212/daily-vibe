@@ -162,10 +162,7 @@ export default function FortuneCard({ fortune, userInfo }) {
         </div>
       </div>
 
-      {/* 공유 버튼 */}
-      <ShareButton cardRef={cardRef} fortune={fortune} userInfo={userInfo} />
-
-      {/* 타로 카드 섹션 */}
+      {/* 오늘의 카드 섹션 */}
       {!showTarot ? (
         <button
           onClick={() => setShowTarot(true)}
@@ -176,6 +173,9 @@ export default function FortuneCard({ fortune, userInfo }) {
       ) : (
         <TarotCard fortune={fortune} onClose={() => setShowTarot(false)} />
       )}
+
+      {/* 공유 버튼 */}
+      <ShareButton cardRef={cardRef} fortune={fortune} userInfo={userInfo} />
     </div>
   );
 }
