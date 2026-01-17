@@ -6,6 +6,7 @@ import { toPng } from 'html-to-image';
 export default function ShareButton({ cardRef, fortune, userInfo }) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
@@ -45,6 +46,8 @@ export default function ShareButton({ cardRef, fortune, userInfo }) {
 
 🎰 행운번호: ${fortune.luckyNumbers.join(', ')}
 
+나도 운세 보기 👉 https://daily-vibe-ten.vercel.app
+
 #DailyVibe #오늘의운세 #MBTI운세`;
 
     if (navigator.share) {
@@ -73,38 +76,66 @@ export default function ShareButton({ cardRef, fortune, userInfo }) {
     }
   };
 
-  return (
-    <div className="flex gap-3">
-      {/* 이미지 저장 버튼 */}
-      <button
-        onClick={handleDownload}
-        disabled={isDownloading}
-        className="flex-1 py-3 bg-gradient-to-r from-neon-pink to-neon-purple rounded-lg font-body font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
-      >
-        {isDownloading ? (
-          <>
-            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            저장 중...
-          </>
-        ) : (
-          <>
-            📥 이미지 저장
-          </>
-        )}
-      </button>
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText('https://daily-vibe-ten.vercel.app');
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch (error) {
+      console.error('Error copying link:', error);
+    }
+  };
 
-      {/* 공유 버튼 */}
+  return (
+    <div className="space-y-3">
+      <div className="flex gap-3">
+        {/* 이미지 저장 버튼 */}
+        <button
+          onClick={handleDownload}
+          disabled={isDownloading}
+          className="flex-1 py-3 bg-gradient-to-r from-neon-pink to-neon-purple rounded-lg font-body font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50 flex items-center justify-center gap-2"
+        >
+          {isDownloading ? (
+            <>
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              저장 중...
+            </>
+          ) : (
+            <>
+              📥 이미지 저장
+            </>
+          )}
+        </button>
+
+        {/* 공유 버튼 */}
+        <button
+          onClick={handleShare}
+          className="flex-1 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-lg font-body font-semibold text-white transition-all hover:opacity-90 flex items-center justify-center gap-2"
+        >
+          {isCopied ? (
+            <>
+              ✅ 복사됨!
+            </>
+          ) : (
+            <>
+              📤 공유하기
+            </>
+          )}
+        </button>
+      </div>
+
+      {/* 링크 복사 버튼 */}
       <button
-        onClick={handleShare}
-        className="flex-1 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-lg font-body font-semibold text-white transition-all hover:opacity-90 flex items-center justify-center gap-2"
+        onClick={handleCopyLink}
+        className="w-full py-3 bg-white/10 border border-white/20 rounded-lg font-body text-white transition-all hover:bg-white/20 flex items-center justify-center gap-2"
       >
-        {isCopied ? (
+        {linkCopied ? (
           <>
-            ✅ 복사됨!
+            ✅ 링크 복사됨!
           </>
         ) : (
           <>
-            📤 공유하기
+            🔗 친구에게 링크 공유
           </>
         )}
       </button>
