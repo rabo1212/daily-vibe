@@ -62,10 +62,38 @@ export default function Home() {
           </p>
         </header>
 
-        {/* 메인 콘텐츠 */}
-        {!fortune && !loading && (
-          <InputForm onSubmit={handleSubmit} />
-        )}
+       {/* 메인 콘텐츠 */}
+{!fortune && !loading && (
+  <>
+    {/* 서비스 소개 섹션 */}
+    <div className="glass-card rounded-2xl p-6 mb-6 text-center">
+      <h2 className="text-xl font-bold text-white mb-3">🔮 Daily Vibe란?</h2>
+      <p className="text-white/70 text-sm leading-relaxed mb-4">
+        MBTI, 별자리, 띠를 조합해 매일 당신만을 위한 맞춤 운세를 제공해요. 
+        AI가 분석한 오늘의 연애운, 금전운, 직장운과 함께 
+        행운의 숫자와 컬러까지 확인해보세요!
+      </p>
+      <div className="flex justify-center gap-4 text-xs text-white/50">
+        <span>✨ MBTI 16가지</span>
+        <span>⭐ 별자리 12가지</span>
+        <span>🐉 띠 12가지</span>
+      </div>
+    </div>
+    
+    <InputForm onSubmit={handleSubmit} />
+    
+    {/* 추가 설명 섹션 */}
+    <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
+      <h3 className="text-sm font-bold text-white/80 mb-2">💫 이런 분들께 추천해요</h3>
+      <ul className="text-xs text-white/60 space-y-1">
+        <li>• 매일 아침 오늘의 운세가 궁금한 분</li>
+        <li>• MBTI와 별자리를 좋아하는 분</li>
+        <li>• 재미있는 행운의 숫자를 받고 싶은 분</li>
+        <li>• 오늘의 컬러로 기분 전환하고 싶은 분</li>
+      </ul>
+    </div>
+  </>
+)}
 
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 fade-in">
