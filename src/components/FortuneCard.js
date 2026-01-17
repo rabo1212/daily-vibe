@@ -171,7 +171,7 @@ export default function FortuneCard({ fortune, userInfo }) {
           onClick={() => setShowTarot(true)}
           className="w-full py-4 rounded-lg font-display text-lg font-bold tracking-wider bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/50 transition-all"
         >
-          타로 카드 받기
+          👆 오늘의 카드 받기
         </button>
       ) : (
         <TarotCard fortune={fortune} onClose={() => setShowTarot(false)} />
