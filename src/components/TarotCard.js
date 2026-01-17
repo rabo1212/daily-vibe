@@ -80,7 +80,7 @@ function getRandomCard(fortune) {
 }
 
 export default function TarotCard({ fortune, onClose }) {
-  const [stage, setStage] = useState('button'); // button → ad → flip → reveal
+  const [stage, setStage] = useState('ad'); // 바로 광고 단계로 시작
   const [adCountdown, setAdCountdown] = useState(5);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -102,10 +102,6 @@ export default function TarotCard({ fortune, onClose }) {
     }
   }, [stage, adCountdown, fortune]);
 
-  const handleGetCard = () => {
-    setStage('ad');
-  };
-
   const handleDownload = async () => {
     if (!selectedCard) return;
     
@@ -118,16 +114,6 @@ export default function TarotCard({ fortune, onClose }) {
 
   return (
     <div className="mt-6">
-      {/* 버튼 단계 */}
-      {stage === 'button' && (
-        <button
-          onClick={handleGetCard}
-          className="w-full py-4 rounded-lg font-display text-lg font-bold tracking-wider bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/50 transition-all animate-pulse"
-        >
-          🎴 타로 카드 받기 🎴
-        </button>
-      )}
-
       {/* 광고 단계 */}
       {stage === 'ad' && (
         <div className="bg-black/80 rounded-lg p-6 text-center">
