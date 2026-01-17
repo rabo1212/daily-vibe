@@ -56,23 +56,19 @@ function selectCategory(fortune) {
     work: fortune.workScore,
   };
   
-  // 가장 높은 점수의 카테고리 찾기
   const maxCategory = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-  
-  // 랜덤 요소 추가
   const categories = ['love', 'money', 'work', 'health', 'luck', 'wisdom'];
   const random = Math.random();
   
   if (random < 0.5) {
-    return maxCategory; // 50% 확률로 최고 점수 카테고리
+    return maxCategory;
   } else if (random < 0.8) {
-    return 'luck'; // 30% 확률로 행운
+    return 'luck';
   } else {
-    return categories[Math.floor(Math.random() * categories.length)]; // 20% 랜덤
+    return categories[Math.floor(Math.random() * categories.length)];
   }
 }
 
-// 랜덤 카드 선택
 function getRandomCard(fortune) {
   const category = selectCategory(fortune);
   const cards = TAROT_CARDS[category];
@@ -80,32 +76,26 @@ function getRandomCard(fortune) {
 }
 
 export default function TarotCard({ fortune, onClose }) {
-  const [stage, setStage] = useState('ad'); // 바로 광고 단계로 시작
+  const [stage, setStage] = useState('ad'); // ad → reveal
   const [adCountdown, setAdCountdown] = useState(5);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [isFlipped, setIsFlipped] = useState(false);
 
-  // 광고 카운트다운
+  useEffect(() => {
+    // 컴포넌트 마운트시 카드 미리 선택
+    setSelectedCard(getRandomCard(fortune));
+  }, [fortune]);
+
   useEffect(() => {
     if (stage === 'ad' && adCountdown > 0) {
       const timer = setTimeout(() => setAdCountdown(adCountdown - 1), 1000);
       return () => clearTimeout(timer);
     } else if (stage === 'ad' && adCountdown === 0) {
-      setStage('flip');
-      // 카드 선택
-      setSelectedCard(getRandomCard(fortune));
-      // 1초 후 카드 뒤집기
-      setTimeout(() => {
-        setIsFlipped(true);
-        setStage('reveal');
-      }, 1000);
+      setStage('reveal');
     }
-  }, [stage, adCountdown, fortune]);
+  }, [stage, adCountdown]);
 
   const handleDownload = async () => {
     if (!selectedCard) return;
-    
-    // 카드 이미지 다운로드
     const link = document.createElement('a');
     link.href = `/tarot-cards/${selectedCard.id}.webp`;
     link.download = `daily-vibe-tarot-${selectedCard.id}.webp`;
@@ -119,7 +109,6 @@ export default function TarotCard({ fortune, onClose }) {
         <div className="bg-black/80 rounded-lg p-6 text-center">
           <p className="text-white/60 text-sm mb-2">광고 후 카드가 공개됩니다</p>
           
-          {/* 광고 영역 (AdSense 승인 후 교체) */}
           <div className="bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-lg p-8 mb-4 border border-white/10">
             <p className="text-white/40 text-sm">광고 영역</p>
             <p className="text-white/60 text-xs mt-2">(AdSense 승인 후 자동 표시)</p>
@@ -132,98 +121,48 @@ export default function TarotCard({ fortune, onClose }) {
         </div>
       )}
 
-      {/* 카드 뒤집기 단계 */}
-      {(stage === 'flip' || stage === 'reveal') && selectedCard && (
-        <div className="space-y-4">
-          {/* 카드 */}
-          <div className="flex justify-center perspective-1000">
-            <div
-              className={`relative w-64 h-80 transition-transform duration-1000 transform-style-3d ${
-                isFlipped ? 'rotate-y-180' : ''
-              }`}
-              style={{
-                transformStyle: 'preserve-3d',
-                transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-              }}
-            >
-              {/* 카드 뒷면 - 예쁜 그라데이션 + 별 디자인 */}
-              <div
-                className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900 border-2 border-purple-400 flex items-center justify-center overflow-hidden"
-                style={{ backfaceVisibility: 'hidden' }}
-              >
-                {/* 별 패턴 배경 */}
-                <div className="absolute inset-0">
-                  <div className="absolute top-4 left-4 text-yellow-300 text-xs">✦</div>
-                  <div className="absolute top-8 right-8 text-yellow-200 text-sm">✧</div>
-                  <div className="absolute top-16 left-12 text-purple-300 text-xs">✦</div>
-                  <div className="absolute top-24 right-4 text-pink-300 text-xs">✧</div>
-                  <div className="absolute bottom-24 left-6 text-yellow-200 text-sm">✦</div>
-                  <div className="absolute bottom-16 right-12 text-purple-300 text-xs">✧</div>
-                  <div className="absolute bottom-8 left-16 text-pink-300 text-xs">✦</div>
-                  <div className="absolute bottom-4 right-6 text-yellow-300 text-xs">✧</div>
-                </div>
-                
-                {/* 중앙 디자인 */}
-                <div className="text-center z-10">
-                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-yellow-400 via-pink-400 to-purple-500 flex items-center justify-center shadow-lg shadow-purple-500/50">
-                    <span className="text-3xl">✨</span>
-                  </div>
-                  <p className="text-white font-display text-sm tracking-widest">DAILY VIBE</p>
-                  <p className="text-purple-300 text-xs mt-1">TAROT</p>
-                </div>
-                
-                {/* 테두리 장식 */}
-                <div className="absolute inset-2 border border-purple-400/30 rounded-lg"></div>
-              </div>
-
-              {/* 카드 앞면 */}
-              <div
-                className="absolute inset-0 rounded-xl overflow-hidden border-2 border-purple-500"
-                style={{
-                  backfaceVisibility: 'hidden',
-                  transform: 'rotateY(180deg)',
+      {/* 카드 공개 단계 */}
+      {stage === 'reveal' && selectedCard && (
+        <div className="space-y-4 fade-in">
+          {/* 카드 이미지 */}
+          <div className="flex justify-center">
+            <div className="w-64 h-80 rounded-xl overflow-hidden border-2 border-purple-500 shadow-lg shadow-purple-500/30">
+              <img
+                src={`/tarot-cards/${selectedCard.id}.webp`}
+                alt={selectedCard.keyword}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect fill="%23581c87" width="300" height="400"/><text x="150" y="200" text-anchor="middle" fill="white" font-size="40">✨</text></svg>';
                 }}
-              >
-                <img
-                  src={`/tarot-cards/${selectedCard.id}.webp`}
-                  alt={selectedCard.keyword}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // 이미지 없으면 플레이스홀더
-                    e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect fill="%23581c87" width="300" height="400"/><text x="150" y="200" text-anchor="middle" fill="white" font-size="40">✨</text></svg>';
-                  }}
-                />
-              </div>
+              />
             </div>
           </div>
 
           {/* 카드 메시지 */}
-          {stage === 'reveal' && (
-            <div className="text-center space-y-3 fade-in">
-              <div className="inline-block px-4 py-1 bg-purple-500/30 rounded-full">
-                <span className="text-purple-300 font-semibold">#{selectedCard.keyword}</span>
-              </div>
-              <p className="text-white text-lg font-body leading-relaxed">
-                "{selectedCard.message}"
-              </p>
-              
-              {/* 버튼들 */}
-              <div className="flex gap-3 mt-4">
-                <button
-                  onClick={handleDownload}
-                  className="flex-1 py-3 bg-gradient-to-r from-neon-pink to-neon-purple rounded-lg font-body font-semibold text-white"
-                >
-                  📥 카드 저장
-                </button>
-                <button
-                  onClick={onClose}
-                  className="flex-1 py-3 bg-white/10 border border-white/20 rounded-lg font-body text-white"
-                >
-                  닫기
-                </button>
-              </div>
+          <div className="text-center space-y-3">
+            <div className="inline-block px-4 py-1 bg-purple-500/30 rounded-full">
+              <span className="text-purple-300 font-semibold">#{selectedCard.keyword}</span>
             </div>
-          )}
+            <p className="text-white text-lg font-body leading-relaxed">
+              "{selectedCard.message}"
+            </p>
+            
+            {/* 버튼들 */}
+            <div className="flex gap-3 mt-4">
+              <button
+                onClick={handleDownload}
+                className="flex-1 py-3 bg-gradient-to-r from-neon-pink to-neon-purple rounded-lg font-body font-semibold text-white"
+              >
+                📥 카드 저장
+              </button>
+              <button
+                onClick={onClose}
+                className="flex-1 py-3 bg-white/10 border border-white/20 rounded-lg font-body text-white"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
