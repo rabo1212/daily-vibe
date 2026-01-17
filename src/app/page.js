@@ -87,7 +87,7 @@ export default function Home() {
 
         {/* 푸터 */}
         <footer className="mt-12 text-center text-white/30 text-sm font-body">
-          <p>© 2025 Daily Vibe. All rights reserved.</p>
+          <p>© 2026 Daily Vibe. All rights reserved.</p>
         </footer>
       </div>
     </main>

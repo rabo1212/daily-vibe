@@ -1,0 +1,72 @@
+[
+  {
+    "id": "love_01",
+    "keyword": "사랑",
+    "filename": "love_01.webp"
+  },
+  {
+    "id": "love_03",
+    "keyword": "사랑",
+    "filename": "love_03.webp"
+  },
+  {
+    "id": "love_05",
+    "keyword": "사랑",
+    "filename": "love_05.webp"
+  },
+  {
+    "id": "love_07",
+    "keyword": "인연",
+    "filename": "love_07.webp"
+  },
+  {
+    "id": "love_09",
+    "keyword": "설렘",
+    "filename": "love_09.webp"
+  },
+  {
+    "id": "money_01",
+    "keyword": "재물",
+    "filename": "money_01.webp"
+  },
+  {
+    "id": "money_03",
+    "keyword": "재물",
+    "filename": "money_03.webp"
+  },
+  {
+    "id": "money_05",
+    "keyword": "풍요",
+    "filename": "money_05.webp"
+  },
+  {
+    "id": "money_07",
+    "keyword": "성공",
+    "filename": "money_07.webp"
+  },
+  {
+    "id": "money_09",
+    "keyword": "기회",
+    "filename": "money_09.webp"
+  },
+  {
+    "id": "work_01",
+    "keyword": "업무",
+    "filename": "work_01.webp"
+  },
+  {
+    "id": "work_03",
+    "keyword": "성취",
+    "filename": "work_03.webp"
+  },
+  {
+    "id": "work_05",
+    "keyword": "협력",
+    "filename": "work_05.webp"
+  },
+  {
+    "id": "work_07",
+    "keyword": "리더십",
+    "filename": "work_07.webp"
+  }
+]

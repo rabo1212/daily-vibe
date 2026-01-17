@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import ShareButton from './ShareButton';
+import TarotCard from './TarotCard';
 
 // 색상 코드 → 한글 변환
 const COLOR_NAMES = {
@@ -17,14 +18,13 @@ const COLOR_NAMES = {
 
 export default function FortuneCard({ fortune, userInfo }) {
   const cardRef = useRef(null);
-  const [isCapturing, setIsCapturing] = useState(false);
+  const [showTarot, setShowTarot] = useState(false);
 
   const today = new Date();
-  const dateStr = today.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).replace(/\. /g, '.').replace('.', '');
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  const dateStr = `${year}.${month}.${day}`;
   
   const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   const dayStr = dayNames[today.getDay()];
@@ -74,13 +74,13 @@ export default function FortuneCard({ fortune, userInfo }) {
             <div className="font-display text-3xl font-bold text-neon-pink neon-text">
               {userInfo.mbti}
             </div>
-            <div className="flex justify-center items-center gap-4 text-2xl">
+            <div className="flex justify-center items-center gap-4 text-xl">
               <span className="text-neon-cyan neon-text-cyan">
                 {userInfo.zodiacAnimal.emoji}
               </span>
               <span className="text-white/50">×</span>
               <span className="text-neon-purple neon-text-purple">
-                {userInfo.zodiacSign.emoji}
+                {userInfo.zodiacSign.emoji} {userInfo.zodiacSign.name}
               </span>
             </div>
           </div>
@@ -157,13 +157,25 @@ export default function FortuneCard({ fortune, userInfo }) {
 
           {/* 날짜 */}
           <div className="text-center text-white/70 font-mono text-sm">
-            {dateStr} {dayStr}
+            {dateStr}. {dayStr}
           </div>
         </div>
       </div>
 
       {/* 공유 버튼 */}
       <ShareButton cardRef={cardRef} fortune={fortune} userInfo={userInfo} />
+
+      {/* 타로 카드 섹션 */}
+      {!showTarot ? (
+        <button
+          onClick={() => setShowTarot(true)}
+          className="w-full py-4 rounded-lg font-display text-lg font-bold tracking-wider bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-purple-500/50 transition-all"
+        >
+          🎴 타로 카드 받기 🎴
+        </button>
+      ) : (
+        <TarotCard fortune={fortune} onClose={() => setShowTarot(false)} />
+      )}
     </div>
   );
 }
