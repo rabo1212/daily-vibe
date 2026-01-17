@@ -86,7 +86,14 @@ export default function Home() {
         )}
 
         {/* 푸터 */}
-        <footer className="mt-12 text-center text-white/30 text-sm font-body">
+        <footer className="mt-12 text-center text-white/30 text-sm font-body space-y-3">
+          <div className="flex justify-center gap-4">
+            <a href="/about" className="hover:text-white/60 transition-colors">서비스 소개</a>
+            <span>|</span>
+            <a href="/terms" className="hover:text-white/60 transition-colors">이용약관</a>
+            <span>|</span>
+            <a href="/privacy" className="hover:text-white/60 transition-colors">개인정보처리방침</a>
+          </div>
           <p>© 2026 Daily Vibe. All rights reserved.</p>
         </footer>
       </div>
