@@ -5,37 +5,22 @@ import { useState, useEffect } from 'react';
 // 타로 카드 데이터 (키워드별 분류)
 const TAROT_CARDS = {
   love: [
-    { id: 'love_01', keyword: '사랑', message: '진정한 사랑이 당신을 향해 다가오고 있어요.' },
-    { id: 'love_02', keyword: '사랑', message: '마음을 열면 아름다운 인연이 찾아올 거예요.' },
-    { id: 'love_03', keyword: '사랑', message: '사랑하는 사람과의 관계가 더욱 깊어질 시기예요.' },
     { id: 'love_04', keyword: '사랑', message: '당신의 진심이 상대방에게 전해질 거예요.' },
-    { id: 'love_05', keyword: '사랑', message: '로맨틱한 순간이 곧 찾아올 거예요.' },
     { id: 'love_06', keyword: '인연', message: '운명적인 만남이 기다리고 있어요.' },
-    { id: 'love_07', keyword: '인연', message: '소중한 인연을 알아보는 눈을 가지세요.' },
     { id: 'love_08', keyword: '인연', message: '과거의 인연이 새로운 모습으로 돌아올 수 있어요.' },
-    { id: 'love_09', keyword: '설렘', message: '두근거리는 새로운 시작이 기다려요.' },
     { id: 'love_10', keyword: '설렘', message: '설레는 감정을 즐기세요, 좋은 징조예요.' },
   ],
   money: [
-    { id: 'money_01', keyword: '재물', message: '재물운이 상승하고 있어요. 기회를 잡으세요!' },
     { id: 'money_02', keyword: '재물', message: '예상치 못한 곳에서 금전적 행운이 찾아와요.' },
-    { id: 'money_03', keyword: '재물', message: '꾸준한 노력이 곧 보상으로 돌아올 거예요.' },
     { id: 'money_04', keyword: '풍요', message: '풍요로운 에너지가 당신을 감싸고 있어요.' },
-    { id: 'money_05', keyword: '풍요', message: '감사하는 마음이 더 큰 풍요를 불러와요.' },
     { id: 'money_06', keyword: '성공', message: '당신의 노력이 빛을 발할 때가 왔어요.' },
-    { id: 'money_07', keyword: '성공', message: '목표를 향해 나아가세요, 성공이 기다려요.' },
     { id: 'money_08', keyword: '기회', message: '새로운 기회의 문이 열리고 있어요.' },
-    { id: 'money_09', keyword: '기회', message: '주변을 잘 살펴보세요, 기회가 숨어있어요.' },
     { id: 'money_10', keyword: '투자', message: '신중한 투자가 좋은 결과를 가져올 거예요.' },
   ],
   work: [
-    { id: 'work_01', keyword: '업무', message: '업무에서 인정받는 일이 생길 거예요.' },
     { id: 'work_02', keyword: '업무', message: '집중력이 높아지는 시기, 중요한 일을 처리하세요.' },
-    { id: 'work_03', keyword: '성취', message: '오랜 노력이 결실을 맺는 순간이 다가와요.' },
     { id: 'work_04', keyword: '성취', message: '스스로를 믿으세요, 큰 성취가 기다려요.' },
-    { id: 'work_05', keyword: '협력', message: '동료와의 협력이 좋은 결과를 만들어요.' },
     { id: 'work_06', keyword: '협력', message: '팀워크가 빛을 발하는 시기예요.' },
-    { id: 'work_07', keyword: '리더십', message: '당신의 리더십이 필요한 순간이에요.' },
     { id: 'work_08', keyword: '리더십', message: '앞장서서 이끌어가세요, 모두가 따를 거예요.' },
     { id: 'work_09', keyword: '창의', message: '창의적인 아이디어가 샘솟는 시기예요.' },
     { id: 'work_10', keyword: '창의', message: '새로운 시도가 좋은 결과로 이어질 거예요.' },
@@ -53,11 +38,6 @@ const TAROT_CARDS = {
     { id: 'luck_03', keyword: '행운', message: '소원을 빌어보세요, 이루어질 거예요.' },
     { id: 'luck_04', keyword: '희망', message: '희망을 잃지 마세요, 좋은 일이 생겨요.' },
     { id: 'luck_05', keyword: '희망', message: '어둠 뒤에 밝은 빛이 기다리고 있어요.' },
-    { id: 'luck_06', keyword: '긍정', message: '긍정적인 마음이 행운을 불러와요.' },
-    { id: 'luck_07', keyword: '긍정', message: '웃으면 좋은 일이 생겨요!' },
-    { id: 'luck_08', keyword: '변화', message: '긍정적인 변화가 찾아오고 있어요.' },
-    { id: 'luck_09', keyword: '변화', message: '변화를 두려워하지 마세요, 성장의 기회예요.' },
-    { id: 'luck_10', keyword: '새출발', message: '새로운 시작을 위한 완벽한 타이밍이에요.' },
   ],
   wisdom: [
     { id: 'wisdom_01', keyword: '지혜', message: '지혜로운 선택이 좋은 결과를 가져와요.' },
@@ -180,15 +160,34 @@ export default function TarotCard({ fortune, onClose }) {
                 transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
               }}
             >
-              {/* 카드 뒷면 */}
+              {/* 카드 뒷면 - 예쁜 그라데이션 + 별 디자인 */}
               <div
-                className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-900 to-pink-900 border-2 border-purple-500 flex items-center justify-center"
+                className="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-900 border-2 border-purple-400 flex items-center justify-center overflow-hidden"
                 style={{ backfaceVisibility: 'hidden' }}
               >
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🎴</div>
-                  <p className="text-white/60 font-display">DAILY VIBE</p>
+                {/* 별 패턴 배경 */}
+                <div className="absolute inset-0">
+                  <div className="absolute top-4 left-4 text-yellow-300 text-xs">✦</div>
+                  <div className="absolute top-8 right-8 text-yellow-200 text-sm">✧</div>
+                  <div className="absolute top-16 left-12 text-purple-300 text-xs">✦</div>
+                  <div className="absolute top-24 right-4 text-pink-300 text-xs">✧</div>
+                  <div className="absolute bottom-24 left-6 text-yellow-200 text-sm">✦</div>
+                  <div className="absolute bottom-16 right-12 text-purple-300 text-xs">✧</div>
+                  <div className="absolute bottom-8 left-16 text-pink-300 text-xs">✦</div>
+                  <div className="absolute bottom-4 right-6 text-yellow-300 text-xs">✧</div>
                 </div>
+                
+                {/* 중앙 디자인 */}
+                <div className="text-center z-10">
+                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-gradient-to-br from-yellow-400 via-pink-400 to-purple-500 flex items-center justify-center shadow-lg shadow-purple-500/50">
+                    <span className="text-3xl">✨</span>
+                  </div>
+                  <p className="text-white font-display text-sm tracking-widest">DAILY VIBE</p>
+                  <p className="text-purple-300 text-xs mt-1">TAROT</p>
+                </div>
+                
+                {/* 테두리 장식 */}
+                <div className="absolute inset-2 border border-purple-400/30 rounded-lg"></div>
               </div>
 
               {/* 카드 앞면 */}
@@ -205,7 +204,7 @@ export default function TarotCard({ fortune, onClose }) {
                   className="w-full h-full object-cover"
                   onError={(e) => {
                     // 이미지 없으면 플레이스홀더
-                    e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect fill="%23581c87" width="300" height="400"/><text x="150" y="200" text-anchor="middle" fill="white" font-size="60">🎴</text></svg>';
+                    e.target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><rect fill="%23581c87" width="300" height="400"/><text x="150" y="200" text-anchor="middle" fill="white" font-size="40">✨</text></svg>';
                   }}
                 />
               </div>
