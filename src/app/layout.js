@@ -10,9 +10,6 @@ export const metadata = {
     description: 'MBTI × 띠 × 별자리로 알아보는 오늘의 운세 카드',
     type: 'website',
   },
-  other: {
-    'google-adsense-account': 'ca-pub-6584899015936237',
-  },
 };
 
 export default function RootLayout({ children }) {
@@ -20,14 +17,22 @@ export default function RootLayout({ children }) {
     <html lang="ko">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="google-adsense-account" content="ca-pub-6584899015936237" />
         <link rel="icon" href="/favicon.ico" />
-        {/* Google AdSense */}
+        
+        {/* Google Analytics */}
         <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6584899015936237"
-          crossOrigin="anonymous"
+          src="https://www.googletagmanager.com/gtag/js?id=G-RLZ78VD7TJ"
           strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RLZ78VD7TJ');
+          `}
+        </Script>
       </head>
       <body className="noise-overlay">
         {children}
