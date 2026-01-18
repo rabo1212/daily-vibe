@@ -69,8 +69,8 @@ export default function Home() {
     <div className="glass-card rounded-2xl p-6 mb-6 text-center">
       <h2 className="text-xl font-bold text-white mb-3">🔮 Daily Vibe란?</h2>
      <p className="text-white/70 text-sm leading-relaxed mb-4">
-  MBTI, 별자리, 띠를 조합해 매일 당신만을 위한 맞춤 운세를 제공해요.<br />
-  연애운, 금전운, 직장운과 행운의 숫자, 컬러까지 확인해보세요!
+  MBTI, 별자리, 띠를 조합한 맞춤 운세!<br />
+  연애운, 금전운, 직장운, 행운의 숫자와 컬러까지 ✨
 </p>
       <div className="flex justify-center gap-4 text-xs text-white/50">
         <span>✨ MBTI 16가지</span>
